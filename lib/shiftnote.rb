@@ -11,6 +11,7 @@ class ShiftNote
   # Initialize a new ShiftNote variable, via a cookie.
   # @param cookie [String] Cookie of an authenticated user.
   def initialize(credentials = {})
+    @credentials = credentials
     generate_cookie(credentials[:username], credentials[:password])
   end
 
@@ -35,6 +36,7 @@ class ShiftNote
       http.request(request)
     end
     # response.code
+    raise Errors::InvalidCredentials, 'The provided credentials are invalid, please try again.' if response.body.include?("There was no match for the username and password provided, please try again!")
 
     @cookie = response.header['Set-Cookie']
   end
@@ -46,7 +48,12 @@ class ShiftNote
 
     doc = Nokogiri::HTML.parse(shiftnote.body)
 
-    data = doc.search('div#MyScheduleDiv').at('script').text
+    begin
+      data = doc.search('div#MyScheduleDiv').at('script').text
+    rescue NoMethodError
+      generate_cookie(@credentials[:username], @credentials[:password])
+      retry
+    end
 
     data = data.gsub('<script>', '').delete(';').gsub('</script>', '').gsub('window.scheduleMinebindings = ShiftNote.Bind(window.scheduleMinemodel)', '').gsub('window.scheduleMinemodel = ', '')
 
@@ -59,5 +66,6 @@ end
 require_relative 'shiftnote/days_of_week_shift'
 require_relative 'shiftnote/days_of_week_shifts'
 require_relative 'shiftnote/employee_overview_view_model'
+require_relative 'shiftnote/errors'
 require_relative 'shiftnote/schedule_this_week_view_model'
 require_relative 'shiftnote/shift_view_model'
