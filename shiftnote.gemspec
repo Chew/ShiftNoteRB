@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name = 'ShiftNote'
+  s.name = 'shiftnote'
   s.version = '0.1.0'
   s.summary = 'ShiftNote, an employee shift management system, but for Ruby.'
   s.description = 'ShiftNote, an employee shift management system, but for Ruby'
