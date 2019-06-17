@@ -7,14 +7,14 @@ class ShiftNote::EmployeeOverviewViewModel
       'home' => data['HomePhone'],
       'mobile' => data['MobilePhone']
     }
-    @email = data['email']
+    @email = data['Email']
     @birthday = Time.parse(data['BirthDate'])
     @schedule_this_week = ShiftNote::ScheduleThisWeekViewModel.new(data['ScheduleThisWeekViewModel'])
     @trade_shifts = data['TradeShifts']
     @trade_shifts_current_day = data['TradeShiftsCurrentDay']
     @positions = data['ThisEmployeePositions']
-    @last_day = Time.parse(data['LastDay'])
-    @hire_day = Time.parse(data['HireDate'])
+    @last_day = data['LastDay'] ? Time.parse(data['LastDay']) : nil
+    @hire_day = data['HireDate'] ? Time.parse(data['HireDate']) : nil
   end
 
   # This is the employee's ID. Really has no use outside of Shiftnote internal data
