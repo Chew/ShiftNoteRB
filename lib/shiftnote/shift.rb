@@ -128,9 +128,4 @@ class ShiftNote::Shift
 
   # @return [JSON] the raw data returned by ShiftNote
   attr_reader :raw
-
-  # Releases the shift to an employee.
-  def release(employee = 0)
-
-  end
 end
