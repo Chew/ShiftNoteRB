@@ -12,7 +12,7 @@ class ShiftNote
   # @param username [String] the username of the user.
   # @param password [String] the password of the user.
   def initialize(username: nil, password: nil)
-    @credentials = credentials
+    @credentials = {username: username, password: password}
     generate_cookie(username, password)
   end
 
