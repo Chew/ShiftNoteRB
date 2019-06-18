@@ -1,4 +1,4 @@
-class ShiftNote::ScheduleThisWeekViewModel
+class ShiftNote::ScheduleThisWeek
   def initialize(data)
     @raw = data
     @start_date = Time.parse(data['StartDate'])

@@ -24,7 +24,7 @@ class ShiftNote::DaysOfWeekShift
 
   # @return [Shift] the first shift this employee is working on this day.
   def first_shift
-    ShiftNote::ShiftViewModel.new(@raw_shifts.first)
+    ShiftNote::Shift.new(@raw_shifts.first)
   end
 
   # @return [JSON] the raw data returned by ShiftNote.

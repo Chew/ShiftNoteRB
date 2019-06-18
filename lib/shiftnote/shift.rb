@@ -1,4 +1,4 @@
-class ShiftNote::ShiftViewModel
+class ShiftNote::Shift
   def initialize(data)
     @raw = data
     @schedule_id = data['ScheduleId']
@@ -127,4 +127,9 @@ class ShiftNote::ShiftViewModel
 
   # @return [JSON] the raw data returned by ShiftNote
   attr_reader :raw
+
+  # Releases the shift to an employee.
+  def release(employee = 0)
+
+  end
 end

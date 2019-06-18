@@ -66,7 +66,7 @@ class ShiftNote
 
     data = data.gsub('<script>', '').delete(';').gsub('</script>', '').gsub('window.scheduleMinebindings = ShiftNote.Bind(window.scheduleMinemodel)', '').gsub('window.scheduleMinemodel = ', '')
 
-    @employee = EmployeeOverviewViewModel.new(JSON.parse(data))
+    @employee = Employee.new(JSON.parse(data))
   end
 
 end
@@ -74,7 +74,7 @@ end
 # Require files.
 require_relative 'shiftnote/days_of_week_shift'
 require_relative 'shiftnote/days_of_week_shifts'
-require_relative 'shiftnote/employee_overview_view_model'
+require_relative 'shiftnote/employee'
 require_relative 'shiftnote/errors'
-require_relative 'shiftnote/schedule_this_week_view_model'
-require_relative 'shiftnote/shift_view_model'
+require_relative 'shiftnote/schedule_this_week'
+require_relative 'shiftnote/shift'

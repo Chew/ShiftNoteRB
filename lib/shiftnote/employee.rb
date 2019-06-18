@@ -1,4 +1,5 @@
-class ShiftNote::EmployeeOverviewViewModel
+# The schedule for this week.
+class ShiftNote::Employee
   def initialize(data)
     @raw = data
     @id = data['EmployeeId']
@@ -9,7 +10,7 @@ class ShiftNote::EmployeeOverviewViewModel
     }
     @email = data['Email']
     @birthday = Time.parse(data['BirthDate'])
-    @schedule_this_week = ShiftNote::ScheduleThisWeekViewModel.new(data['ScheduleThisWeekViewModel'])
+    @schedule_this_week = ShiftNote::ScheduleThisWeek.new(data['ScheduleThisWeekViewModel'])
     @trade_shifts = data['TradeShifts']
     @trade_shifts_current_day = data['TradeShiftsCurrentDay']
     @positions = data['ThisEmployeePositions']
@@ -36,7 +37,7 @@ class ShiftNote::EmployeeOverviewViewModel
   attr_reader :birthday
 
   # The user's "Schedule This Week," consider the return type for info
-  # @return [ShiftNote::ScheduleThisWeekViewModel]
+  # @return [ScheduleThisWeek]
   attr_reader :schedule_this_week
 
   # Trading (or swapping) means the employee can trade shifts with other employees.
