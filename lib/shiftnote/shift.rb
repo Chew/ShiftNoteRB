@@ -116,7 +116,7 @@ class ShiftNote::Shift
   # When the shift swap is approved, the manager needs to approve it.
   # Until this happens, this is true.
   # @return [true, false] is the shift is pending swap manager approval.
-  def pending_swap_manager_approval
+  def pending_swap_manager_approval?
     @is_pending_swap_manager_approval
   end
 
