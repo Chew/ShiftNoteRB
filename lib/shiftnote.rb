@@ -8,13 +8,18 @@ require 'rails'
 
 # All ShiftNote functionality, whether extended or just here.
 class ShiftNote
-  # Initialize a new ShiftNote variable, via a cookie.
-  # @param cookie [String] Cookie of an authenticated user.
-  def initialize(credentials = {})
+  # Initialize a new ShiftNote variable, via login credentials.
+  # @param username [String] the username of the user.
+  # @param password [String] the password of the user.
+  def initialize(username: nil, password: nil)
     @credentials = credentials
-    generate_cookie(credentials[:username], credentials[:password])
+    generate_cookie(username, password)
   end
 
+  # Generate a cookie, based on login credentials.
+  # @param username [String] the username of the user.
+  # @param password [String] the password of the user.
+  # @return [String] the cookie!
   def generate_cookie(username, password)
     uri = URI.parse('https://ww1.shiftnote.com/login')
     request = Net::HTTP::Post.new(uri)
@@ -40,6 +45,10 @@ class ShiftNote
 
     @cookie = response.header['Set-Cookie']
   end
+
+  # This is basically an API token.
+  # @return [String] the cookie of the authenticated user
+  attr_reader :cookie
 
   # Initialize the Employee
   # @return [ShiftNote::EmployeeOverviewViewModel] the employee

@@ -3,6 +3,8 @@ class ShiftNote::DaysOfWeekShifts
     @data = data
   end
 
+  # The days in this week, whether working or not.
+  # @return [Array<DaysOfWeekShift>] the days in this schedule.
   def days
     dayz = []
     @data.each do |e|
@@ -11,6 +13,7 @@ class ShiftNote::DaysOfWeekShifts
     dayz
   end
 
+  # @return [Array<DaysOfWeekShift>] only the days this employee is working.
   def working_days
     dayz = []
     @data.each do |e|
@@ -19,6 +22,7 @@ class ShiftNote::DaysOfWeekShifts
     dayz
   end
 
+  # @return [JSON] the raw data returned by ShiftNote
   def raw
     @data
   end
