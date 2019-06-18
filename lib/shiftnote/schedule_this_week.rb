@@ -1,3 +1,4 @@
+# The schedule for this week.
 class ShiftNote::ScheduleThisWeek
   def initialize(data)
     @raw = data

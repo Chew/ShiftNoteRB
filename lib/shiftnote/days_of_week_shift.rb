@@ -1,3 +1,4 @@
+# A specific day of a schedule.
 class ShiftNote::DaysOfWeekShift
   def initialize(data)
     @raw = data

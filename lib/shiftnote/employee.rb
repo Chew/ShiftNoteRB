@@ -1,4 +1,4 @@
-# The schedule for this week.
+# An employee.
 class ShiftNote::Employee
   def initialize(data)
     @raw = data

@@ -1,3 +1,4 @@
+# The days of the week, their shifts.
 class ShiftNote::DaysOfWeekShifts
   def initialize(data)
     @data = data

@@ -1,3 +1,4 @@
+# A shift, on the schedule. Woah!
 class ShiftNote::Shift
   def initialize(data)
     @raw = data
