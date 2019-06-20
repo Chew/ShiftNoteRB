@@ -12,7 +12,7 @@ class ShiftNote
   # @param username [String] the username of the user.
   # @param password [String] the password of the user.
   def initialize(username: nil, password: nil)
-    @credentials = {username: username, password: password}
+    @credentials = { username: username, password: password }
     generate_cookie(username, password)
   end
 
@@ -44,6 +44,22 @@ class ShiftNote
     raise Errors::InvalidCredentials, 'The provided credentials are invalid, please try again.' if response.body.include?("There was no match for the username and password provided, please try again!")
 
     @cookie = response.header['Set-Cookie']
+  end
+
+  # Useful method (for the gem that is) that gets rid of stuff we don't need.
+  # @!visibility private
+  # @param string [String] a string to scrape the junk off
+  def scrapejunk(string)
+    string.gsub('<script>', '').delete(';').gsub('</script>', '').gsub('window.scheduleMinebindings = ShiftNote.Bind(window.scheduleMinemodel)', '').gsub('window.scheduleMinemodel = ', '')
+  end
+
+  # Method to find the next instance of the given date.
+  # @!visibility private
+  # @param day [String] what day to find
+  def date_of_next(day)
+    date  = Date.parse(day)
+    delta = date > Date.today ? 0 : 7
+    date + delta
   end
 
   # This is basically an API token.
