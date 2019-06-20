@@ -77,9 +77,9 @@ class ShiftNote
     @cookie
   end
 
-  # Initialize the Employee
-  # @return [ShiftNote::EmployeeOverviewViewModel] the employee
-  def employee
+  # Get the information of the currently logged in user.
+  # @return [User] the user
+  def user
     shiftnote = RestClient.get('https://ww1.shiftnote.com/BulletinBoard/', Cookie: @cookie)
 
     doc = Nokogiri::HTML.parse(shiftnote.body)
@@ -93,9 +93,14 @@ class ShiftNote
 
     data = data.gsub('<script>', '').delete(';').gsub('</script>', '').gsub('window.scheduleMinebindings = ShiftNote.Bind(window.scheduleMinemodel)', '').gsub('window.scheduleMinemodel = ', '')
 
-    @employee = Employee.new(JSON.parse(data))
+    User.new(JSON.parse(data))
   end
 
+  # Get an employee (by id)
+  # @param id [Integer] the id of the employee
+  def employee(id)
+    Employee.new(id: id)
+  end
 end
 
 # Require files.
