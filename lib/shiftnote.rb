@@ -64,7 +64,18 @@ class ShiftNote
 
   # This is basically an API token.
   # @return [String] the cookie of the authenticated user
-  attr_reader :cookie
+  def cookie
+    shiftnote = RestClient.get('https://ww1.shiftnote.com/BulletinBoard/', Cookie: @cookie)
+
+    doc = Nokogiri::HTML.parse(shiftnote.body)
+
+    begin
+      doc.search('div#MyScheduleDiv').at('script').text
+    rescue NoMethodError
+      generate_cookie(@credentials[:username], @credentials[:password])
+    end
+    @cookie
+  end
 
   # Initialize the Employee
   # @return [ShiftNote::EmployeeOverviewViewModel] the employee
