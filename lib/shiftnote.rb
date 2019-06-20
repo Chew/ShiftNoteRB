@@ -101,6 +101,18 @@ class ShiftNote
   def employee(id)
     Employee.new(id: id)
   end
+
+  # @param day [String] what day the week starts on.
+  # @return [ScheduleThisWeek] the schedule for next week.
+  def get_next_week_shifts(day = "Monday")
+    nextmonday = date_of_next(day)
+
+    week2 = RestClient.get("https://ww1.shiftnote.com/Schedules/ScheduleMine/?startDate=#{nextmonday.month}%2F#{nextmonday.day}%2F#{nextmonday.year}&noContainer=true&_=#{Time.now.to_i * 1000}", Cookie: cookie)
+
+    week2doc = Nokogiri::HTML.parse(week2.body)
+    dataweek2 = JSON.parse(scrapejunk(week2doc.at('script').text))
+    User.new(dataweek2).schedule_this_week
+  end
 end
 
 # Require files.
@@ -110,3 +122,4 @@ require_relative 'shiftnote/employee'
 require_relative 'shiftnote/errors'
 require_relative 'shiftnote/schedule_this_week'
 require_relative 'shiftnote/shift'
+require_relative 'shiftnote/user'
